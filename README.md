@@ -63,6 +63,7 @@ Frontend Analytics Dashboard
 ## 🧩 Core Components
 
 ### 1️⃣ Automated Web Scraping
+**(Monitoring Layer)**
 - Runs on a scheduled basis (cron jobs)
 - Executes twice daily
 - Collects:
@@ -220,17 +221,15 @@ This platform demonstrates a responsible AI approach to misinformation detection
 
 🚀 Future Enhancements
 
-Human-in-the-loop verification
+Ethical & Governance Layer
 
 Multilingual news processing
 
 Real-time ingestion pipelines
 
-Source credibility scoring
+Integration with real-world signals
 
-Integration with official data feeds
-
-
+Multi-Channel Delivery Expansion
 
 
 
