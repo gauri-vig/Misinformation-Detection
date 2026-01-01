@@ -1,185 +1,236 @@
 # 🛡️ Automated Fake News Monitoring & Awareness Platform
 
-A fully automated web platform that continuously monitors news sources, detects fake news, provides verified corrections, and visualizes how misinformation spreads across digital platforms — all through a clean, user-friendly dashboard.
+> **An end-to-end automated system for detecting misinformation, generating evidence-backed corrections using RAG, and visualizing how fake news spreads across digital platforms.**
 
 ---
 
-## 🚀 Project Overview
+## 📖 Overview
 
-This project is designed as a **public awareness and monitoring system**.  
-Users do **not** submit news manually. Instead, the system automatically:
+The **Automated Fake News Monitoring & Awareness Platform** is a fully automated, user-facing web application that continuously monitors news sources, identifies potential misinformation, and presents verified corrections through a transparent and explainable pipeline.
 
-- Scrapes news data at scheduled intervals
-- Detects fake, verified, or unverified news
-- Generates corrected information for fake news
-- Analyzes how misinformation spreads across platforms
-- Displays everything on a single live dashboard
-
-**Goal:** Reduce misinformation, increase awareness, and support informed decision-making.
+The platform is designed for **public awareness and decision support**, not for manual fact-checking or user-submitted verification.
 
 ---
 
-## 🎯 Key Features
+## 🎯 Objectives
 
-- 🔄 Fully Automated Workflow (No user input required)
-- 🧹 Scheduled Web Scraping (Runs twice daily)
-- 🧠 Fake News Detection Engine
-- 📝 Corrected Information for Fake News
-- 📊 Interactive Analytics Dashboard
-- 📈 Platform-Wise Spread Analysis
-- ⚠️ Trending Fake News Alerts
-- 🌐 Live Deployed Website
+- Automatically collect news content from multiple sources
+- Detect fake, verified, or unverified news using ML and heuristic signals
+- Provide **evidence-grounded explanations** using a RAG pipeline
+- Track and visualize misinformation spread across platforms
+- Deliver insights via a clean, real-time dashboard
 
 ---
 
-## 🧠 Fake News Detection Strategy
+## 🧠 Design Principles
 
-Instead of relying on generative AI or RAG models, this system uses a **safer hybrid detection approach**.
+- **Automation-first** – no manual user input
+- **Explainability over black-box decisions**
+- **Separation of concerns**
+- **Responsible AI usage**
+- **Deployment-ready architecture**
 
-### Rule-Based Analysis
-- Panic and fear-inducing words
-- Clickbait language patterns
-- Urgency indicators
-- Sensational headline structures
+---
 
-### Source Credibility Scoring
-- Trusted vs untrusted domains
-- Domain reputation analysis
-- Historical source reliability
+## 🏗️ System Architecture
 
-### Pattern-Based ML Model (Optional)
-- Pretrained lightweight classifier
-- Linguistic and structural pattern detection
+Cron Scheduler
+│
+▼
+Web Scraping Engine
+│
+▼
+Raw News Database
+│
+▼
+Classification Engine (ML + Rules)
+│
+▼
+RAG Explainability Layer
+│
+▼
+Processed Results Database
+│
+▼
+Backend APIs
+│
+▼
+Frontend Analytics Dashboard
 
-### Classification Labels
+
+---
+
+## 🧩 Core Components
+
+### 1️⃣ Automated Web Scraping
+- Runs on a scheduled basis (cron jobs)
+- Executes twice daily
+- Collects:
+  - News content
+  - Source URL
+  - Platform name
+  - Timestamp
+- Fully backend-driven (no user trigger)
+
+---
+
+### 2️⃣ Fake News Classification Engine  
+**(Decision Layer)**
+
+Responsible for determining the **status of news items**.
+
+#### Techniques Used
+- Rule-based heuristics (panic words, urgency, clickbait)
+- Source credibility scoring
+- Optional pretrained ML classifier (pattern-based)
+
+#### Output Labels
 - ❌ Fake
 - ✅ Verified
 - ⚠️ Unverified
 
-> ⚠️ Breaking or insufficiently verified news is responsibly labeled as **Unverified**.
+> ⚠️ Breaking or insufficiently corroborated news is explicitly marked *Unverified*.
 
 ---
 
-## 🔄 System Workflow
+### 3️⃣ RAG Explainability Pipeline  
+**(Explanation Layer)**
 
-Cron Job (Scheduler)
-↓
-Web Scraping
-↓
-Database (Raw News)
-↓
-Fake News Detection Engine
-↓
-Database (Final Results)
-↓
-Backend APIs
-↓
-Frontend Dashboard
+RAG is **not** used to decide truth.
 
+It is applied **after classification** to:
+- Retrieve trusted, stored evidence
+- Generate grounded explanations
+- Provide corrected context for fake news
+
+#### Purpose of RAG
+- Reduce hallucination risk
+- Improve transparency
+- Increase user trust
+
+#### Example Output
+> “This news is marked as fake because no official alert has been issued by any verified authority based on retrieved records.”
 
 ---
 
-## 🖥️ Tech Stack
+### 🔒 Responsibility Boundaries
+
+| Layer | Responsibility |
+|-----|---------------|
+| ML / Rules | Decision-making |
+| RAG | Explanation & correction |
+| Database | Persistent source of truth |
+| Frontend | Visualization only |
+
+---
+
+## 📊 Dashboard Features
+
+### 🔴 Fake News Panel
+- Headline
+- Platform(s) of spread
+- Detection timestamp
+- RAG-based correction
+
+### 🟢 Verified News Panel
+- Trusted sources
+- Publication time
+- Verification status
+
+### 📈 Spread Analytics
+- Platform-wise fake news distribution
+- Temporal trend analysis
+- Comparative charts
+
+### ⚠️ Alerts & Highlights
+- Trending misinformation
+- High-impact fake news items
+
+---
+
+## 🖥️ Technology Stack
 
 ### Frontend
 - React.js
 - Next.js
 - Tailwind CSS
-- Chart.js / Recharts
-- Deployment: Vercel
+- Recharts / Chart.js  
+- **Deployment:** Vercel
 
 ### Backend
 - Node.js
 - Express.js
-- Web Scraping Logic
-- Cron Job Scheduler
-- Fake News Detection Engine
-- Deployment: Render
+- Web scraping modules
+- ML classification logic
+- RAG pipeline (retriever + generator)
+- Cron scheduling  
+- **Deployment:** Render
 
 ### Database
-- MongoDB Atlas (Cloud)
+- MongoDB Atlas
+- Optional vector store for RAG retrieval
 
 ---
 
-## 📊 Dashboard Modules
+## 🗄️ Data Model (Simplified)
 
-### 🔴 Fake News Panel
-- Fake headline
-- Platform(s) where it spread
-- Timestamp
-- Corrected information
+{
+  "title": "string",
+  "content": "string",
+  "source": "string",
+  "platform": "string",
+  "status": "Fake | Verified | Unverified",
+  "rag_explanation": "string",
+  "timestamp": "ISODate"
+}
 
-### 🟢 Verified News Panel
-- Trusted news articles
-- Source name
-- Publication time
+| Component    | Platform         |
+| ------------ | ---------------- |
+| Frontend     | Vercel           |
+| Backend      | Render           |
+| RAG Services | Render           |
+| Database     | MongoDB Atlas    |
+| Scheduler    | Render Cron Jobs |
 
-### 📈 Spread Analytics
-- Fake news count per platform
-- Platform-wise comparison
-- Trend over time
+🚫 Explicit Non-Goals
 
-### ⚠️ Alerts Section
-- Trending fake news
-- Most shared misinformation
+No user-submitted news
 
----
+No chatbot interface
 
-## ⏰ Cron Job Scheduling
+No manual verification buttons
 
-- Runs twice daily
-- Fully automated
-- No user interaction required
+No RAG-based decision logic
 
-**Example Schedule:**
-- Morning run
-- Evening run
+No real-time claim of absolute truth
 
----
+⚖️ Ethical Considerations
 
-## 🌐 Deployment Architecture
+The system does not assert factual certainty
 
-| Layer     | Platform |
-|----------|----------|
-| Frontend | Vercel   |
-| Backend  | Render   |
-| Database | MongoDB Atlas |
+Designed as a decision-support & awareness tool
 
----
+Clearly distinguishes verified, fake, and unverified information
 
-## 🛡️ Ethical Design Principles
+Avoids generative speculation
 
-- No user-submitted misinformation
-- No generative or hallucinated truth claims
-- Transparent classification logic
-- Responsible handling of breaking news
-- Awareness-focused design
+🧑‍⚖️ Reviewer / Judge Summary
 
----
+This platform demonstrates a responsible AI approach to misinformation detection by combining automated monitoring, ML-based classification, and RAG-powered explainability, all delivered through a scalable and transparent dashboard.
 
-## 📌 Use Cases
+🚀 Future Enhancements
 
-- Public misinformation awareness
-- Academic and research projects
-- Media literacy platforms
-- Hackathons and innovation challenges
-- Policy and governance dashboards (conceptual)
+Human-in-the-loop verification
 
----
+Multilingual news processing
 
-## 📜 License
+Real-time ingestion pipelines
 
-This project is licensed under the **MIT License**.
+Source credibility scoring
 
----
+Integration with official data feeds
 
-## 🤝 Contributing
 
-Contributions are welcome.  
-Please open an issue or submit a pull request.
 
----
 
-## ⭐ Final Note
 
-This project demonstrates how **automation, rule-based intelligence, and ethical design** can be combined to build reliable misinformation monitoring systems without unsafe AI claims.
